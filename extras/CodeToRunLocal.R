@@ -145,4 +145,27 @@ resultsZipFile <- file.path(outputFolder, "export", paste0("Results", databaseId
 dataFolder <- file.path(outputFolder, "shinyData")
 prepareForEvidenceExplorer(resultsZipFile = resultsZipFile, dataFolder = dataFolder)
 
-launchEvidenceExplorer(dataFolder = dataFolder, blind = FALSE, launch.browser = FALSE)
+fullShinyDataFolder <- file.path(studyFolder, "shinyData")
+if (!file.exists(fullShinyDataFolder)) {
+  dir.create(fullShinyDataFolder)
+}
+file.copy(from = c(list.files(file.path(studyFolder, "CCAE", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "Clinformatics", "shinyData"), full.names = TRUE)
+                   # list.files(file.path(studyFolder, "CPRD", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "MDCD", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "MDCR", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "JMDC", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "OptumEHR", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "DAGermany", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "VA", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "IMRD", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "OpenClaims", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "AmbEMR", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "SIDIAP", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "IPCI", "shinyData"), full.names = TRUE),
+                   # list.files(file.path(studyFolder, "MetaAnalysis", "shinyData"), full.names = TRUE)
+                   ),
+          to = fullShinyDataFolder,
+          overwrite = TRUE)
+
+launchEvidenceExplorer(dataFolder = fullShinyDataFolder, blind = FALSE, launch.browser = FALSE)

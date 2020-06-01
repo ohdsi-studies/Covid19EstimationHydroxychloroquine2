@@ -10,9 +10,9 @@ OHDSI COVID-19 Studyathon: Hydroxychloroquine population-level effect estimation
 - Study lead forums tag: **[jenniferlane](https://forums.ohdsi.org/u/jenniferlane), [jweave17](https://forums.ohdsi.org/u/jweave17)**
 - Study start date: **May 31, 2020**
 - Study end date: **-**
-- Protocol: **[PDF (as filed with PASS)]()**
+- Protocol: **[PDF (as filed with PASS)](https://github.com/ohdsi-studies/Covid19EstimationHydroxychloroquine2/tree/master/documents)**
 - Publications: **-**
-- Results explorer: **[Shiny app]()**
+- Results explorer: **[Shiny app](https://data.ohdsi.org/Covid19EstimationHydroxychloroquine2/)**
 
 Many existing drugs are being considered for use in treatment and prophylaxis of COVID-19 in rapid clinical trials across the world. However, the full safety profiles of these drugs is often unknown, and the current trials are unlikely to be powered or have sufficent follow-up time to evaluate most safety outcomes. The aim of this OHDSI study is to use existing retrospective data to evaluate the safety of these drugs. Where possible, we also attempt to estimate potential efficacy, for example using prior viral infections as surrogate outcome, or where available by using COVID-19 as outcome.
 
