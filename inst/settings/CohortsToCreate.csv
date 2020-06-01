@@ -1,0 +1,10 @@
+atlasId,atlasName,cohortId,name
+137,[OHDSI-Covid19] Hydroxychloroquine + Azithromycin,137,OHDSICovid19_Hydroxychloroquine__Azithromycin
+143,[OHDSI-Covid19] Hydroxychloroquine + Amoxicillin,143,OHDSICovid19_Hydroxychloroquine__Amoxicillin
+2,[OHDSI Cov19] New users of Hydroxychloroquine with prior rheumatoid arthritis,2,OHDSI_Cov19_New_users_of_Hydroxychloroquine_with_prior_rheumatoid_arthritis
+28,[OHDSI Cov19] New users of sulfasazine with prior rheumatoid arthritis,28,OHDSI_Cov19_New_users_of_sulfasazine_with_prior_rheumatoid_arthritis
+16525,[COVID ID197 V1] Suicide and suicidal ideation,16525,COVID_ID197_V1_Suicide_and_suicidal_ideation
+16526,[COVID ID196 V1] Hospitalization for psychosis,16526,COVID_ID196_V1_Hospitalization_for_psychosis
+16527,[COVID ID195 V1] Incident depression with no prior treatment and no mania/psychoses,16527,COVID_ID195_V1_Incident_depression_with_no_prior_treatment_and_no_maniapsychoses
+15696,[COVID ID77 V1] Episodes of influenza narrow,15696,COVID_ID77_V1_Episodes_of_influenza_narrow
+15636,[COVID ID25 V1] Hospitalizations with pneumonia,15636,COVID_ID25_V1_Hospitalizations_with_pneumonia
