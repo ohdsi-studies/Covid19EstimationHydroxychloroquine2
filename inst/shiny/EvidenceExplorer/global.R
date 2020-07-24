@@ -1,7 +1,8 @@
 source("DataPulls.R")
 source("PlotsAndTables.R")
 
-shinySettings <- list(dataFolder = "G:/StudyResults/Covid19EstimationHcqPsychInfluenza/Clinformatics/shinyData", blind = FALSE)
+shinySettings <- list(dataFolder = "G:/StudyResults/Covid19EstimationHcqPsychInfluenza/premergedCleanShinyData", blind = FALSE)
+
 dataFolder <- shinySettings$dataFolder
 blind <- shinySettings$blind
 connection <- NULL
@@ -48,4 +49,12 @@ for (removePart in removeParts) {
 
 tcos <- unique(cohortMethodResult[, c("targetId", "comparatorId", "outcomeId")])
 tcos <- tcos[tcos$outcomeId %in% outcomeOfInterest$outcomeId, ]
-               
+
+dbOrder <- c("AmbEMR", "CCAE", "Clinformatics", "CPRD", "DAGermany", "IMRD", "MDCD", "MDCR", "OpenClaims", "OptumEHR", "Meta-analysis")
+database$dbOrder <- match(database$databaseId, dbOrder)
+database <- database[order(database$dbOrder), ]
+database$dbOrder <- NULL
+
+outcomeOfInterest$outcomeOrder <- match(outcomeOfInterest$outcomeId, c(16527, 16525, 16526))
+outcomeOfInterest <- outcomeOfInterest[order(outcomeOfInterest$outcomeOrder), ]
+outcomeOfInterest$outcomeOrder <- NULL

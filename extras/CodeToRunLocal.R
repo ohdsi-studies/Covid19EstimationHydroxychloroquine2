@@ -19,7 +19,7 @@ mailSettings <- list(from = Sys.getenv("emailAddress"),
                      authenticate = FALSE,
                      send = TRUE)
 
-# CCAE settings ---------------------------------------------------------------- running
+# CCAE settings ---------------------------------------------------------------- done
 databaseId <- "CCAE"
 databaseName <- "CCAE"
 databaseDescription <- "CCAE"
@@ -37,7 +37,7 @@ outputFolder <- file.path(studyFolder, databaseId)
 cohortDatabaseSchema <- "scratch.dbo"
 cohortTable <- "covid19_hcq_psych_optum"
 
-# CPRD settings ---------------------------------------------------------------- 
+# CPRD settings ---------------------------------------------------------------- done
 databaseId <- "CPRD"
 databaseName <- "CPRD"
 databaseDescription <- "CPRD"
@@ -46,7 +46,7 @@ outputFolder <- file.path(studyFolder, databaseId)
 cohortDatabaseSchema <- "scratch.dbo"
 cohortTable <- "covid19_hcq_psych_cprd"
 
-# MDCD settings ---------------------------------------------------------------- 
+# MDCD settings ---------------------------------------------------------------- done
 databaseId <- "MDCD"
 databaseName <- "MDCD"
 databaseDescription <- "MDCD"
@@ -55,7 +55,7 @@ outputFolder <- file.path(studyFolder, databaseId)
 cohortDatabaseSchema <- "scratch.dbo"
 cohortTable <- "covid19_hcq_psych_mdcd"
 
-# MDCR settings ----------------------------------------------------------------
+# MDCR settings ---------------------------------------------------------------- done
 databaseId <- "MDCR"
 databaseName <- "MDCR"
 databaseDescription <- "MDCR"
@@ -64,16 +64,7 @@ outputFolder <- file.path(studyFolder, databaseName)
 cohortDatabaseSchema <- "scratch.dbo"
 cohortTable <- "covid19_hcq_psych_mdcr"
 
-# JMDC ------------------------------------------------------------------------- 
-databaseId <- "JMDC"
-databaseName <- "JMDC"
-databaseDescription <- "JMDC"
-cdmDatabaseSchema = "CDM_JMDC_V1106.dbo"
-outputFolder <- file.path(studyFolder, databaseName)
-cohortDatabaseSchema <- "scratch.dbo"
-cohortTable <- "covid19_hcq_psych_jmdc"
-
-# PanTher ----------------------------------------------------------------------
+# PanTher ---------------------------------------------------------------------- done
 databaseId <- "OptumEHR"
 databaseName <- "OptumEHR"
 databaseDescription <- "OptumEHR"
@@ -81,11 +72,6 @@ cdmDatabaseSchema = "CDM_OPTUM_PANTHER_V1109.dbo"
 outputFolder <- file.path(studyFolder, databaseName)
 cohortDatabaseSchema <- "scratch.dbo"
 cohortTable <- "covid19_hcq_psych_panther"
-
-# IPCI -------------------------------------------------------------------------
-databaseId <- "IPCI"
-databaseName <- "IPCI"
-outputFolder <- file.path(studyFolder, databaseName)
 
 # DAGermany --------------------------------------------------------------------
 databaseId <- "DAGermany"
@@ -95,11 +81,6 @@ outputFolder <- file.path(studyFolder, databaseName)
 # VA ---------------------------------------------------------------------------
 databaseId <- "VA"
 databaseName <- "VA"
-outputFolder <- file.path(studyFolder, databaseName)
-
-# SIDIAP -----------------------------------------------------------------------
-databaseId <- "sidiap17"
-databaseName <- "SIDIAP"
 outputFolder <- file.path(studyFolder, databaseName)
 
 # IMRD -------------------------------------------------------------------------
@@ -115,11 +96,6 @@ outputFolder <- file.path(studyFolder, databaseName)
 # OpenClaims -------------------------------------------------------------------
 databaseId <- "OpenClaims"
 databaseName <- "OpenClaims"
-outputFolder <- file.path(studyFolder, databaseName)
-
-# NHIS-NSC ---------------------------------------------------------------------
-databaseId <- "NHIS-NSC"
-databaseName <- "NHIS-NSC"
 outputFolder <- file.path(studyFolder, databaseName)
 
 # Run --------------------------------------------------------------------------
@@ -145,27 +121,52 @@ resultsZipFile <- file.path(outputFolder, "export", paste0("Results", databaseId
 dataFolder <- file.path(outputFolder, "shinyData")
 prepareForEvidenceExplorer(resultsZipFile = resultsZipFile, dataFolder = dataFolder)
 
+renameDatabaseIds(outputFolder = file.path(studyFolder, "OpenClaims"), oldDatabaseId = "Open Claims", newDatabaseId = "OpenClaims")
+renameDatabaseIds(outputFolder = file.path(studyFolder, "DAGermany"), oldDatabaseId = "DA Germany", newDatabaseId = "DAGermany")
+
+doMetaAnalysis(studyFolder = studyFolder,
+               outputFolders = c(file.path(studyFolder, "CCAE"),
+                                 file.path(studyFolder, "Clinformatics"),
+                                 file.path(studyFolder, "CPRD"),
+                                 file.path(studyFolder, "MDCD"),
+                                 file.path(studyFolder, "MDCR"),
+                                 #file.path(studyFolder, "JMDC"),
+                                 file.path(studyFolder, "OptumEHR"),
+                                 file.path(studyFolder, "DAGermany"),
+                                 #file.path(studyFolder, "VA"),
+                                 file.path(studyFolder, "IMRD"),
+                                 file.path(studyFolder, "OpenClaims"),
+                                 file.path(studyFolder, "AmbEMR")
+                                 #file.path(studyFolder, "SIDIAP"),
+                                 #file.path(studyFolder, "IPCI")
+                                 ),
+               maOutputFolder = file.path(studyFolder, "MetaAnalysis"),
+               maxCores = maxCores)
+
 fullShinyDataFolder <- file.path(studyFolder, "shinyData")
 if (!file.exists(fullShinyDataFolder)) {
   dir.create(fullShinyDataFolder)
 }
 file.copy(from = c(list.files(file.path(studyFolder, "CCAE", "shinyData"), full.names = TRUE),
-                   list.files(file.path(studyFolder, "Clinformatics", "shinyData"), full.names = TRUE)
-                   # list.files(file.path(studyFolder, "CPRD", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "MDCD", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "MDCR", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "Clinformatics", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "CPRD", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "MDCD", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "MDCR", "shinyData"), full.names = TRUE),
                    # list.files(file.path(studyFolder, "JMDC", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "OptumEHR", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "DAGermany", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "OptumEHR", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "DAGermany", "shinyData"), full.names = TRUE),
                    # list.files(file.path(studyFolder, "VA", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "IMRD", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "OpenClaims", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "AmbEMR", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "IMRD", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "OpenClaims", "shinyData"), full.names = TRUE),
+                   list.files(file.path(studyFolder, "AmbEMR", "shinyData"), full.names = TRUE),
                    # list.files(file.path(studyFolder, "SIDIAP", "shinyData"), full.names = TRUE),
                    # list.files(file.path(studyFolder, "IPCI", "shinyData"), full.names = TRUE),
-                   # list.files(file.path(studyFolder, "MetaAnalysis", "shinyData"), full.names = TRUE)
-                   ),
+                   list.files(file.path(studyFolder, "MetaAnalysis", "shinyData"), full.names = TRUE)),
           to = fullShinyDataFolder,
           overwrite = TRUE)
 
-launchEvidenceExplorer(dataFolder = fullShinyDataFolder, blind = FALSE, launch.browser = FALSE)
+premergeCleanShinyData(fullShinyDataFolder = fullShinyDataFolder,
+                       premergedCleanShinyDataFolder = file.path(studyFolder, "premergedCleanShinyData"))
+
+premergedCleanShinyData <- file.path(studyFolder, "premergedCleanShinyData")
+launchEvidenceExplorer(dataFolder = premergedCleanShinyData, blind = FALSE, launch.browser = FALSE)
