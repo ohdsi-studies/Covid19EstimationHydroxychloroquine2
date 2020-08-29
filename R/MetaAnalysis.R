@@ -216,7 +216,7 @@ sumMinCellCount <- function(counts) {
 }
 
 getAllControls <- function(outputFolder) {
-  pathToCsv <- system.file("settings", "NegativeControls.csv", package = "Covid19EstimationHydroxychloroquine")
+  pathToCsv <- system.file("settings", "NegativeControls.csv", package = "Covid19EstimationHydroxychloroquine2", mustWork = TRUE)
   allControls <- read.csv(pathToCsv)
   allControls$oldOutcomeId <- allControls$outcomeId
   allControls$targetEffectSize <- rep(1, nrow(allControls))
